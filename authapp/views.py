@@ -5,11 +5,6 @@ from django.shortcuts import render
 from authapp.models import MyUserModel
 
 
-def go_success(request):
-    login_name = request.GET.get('login_name', '')
-    return render(request, 'auth/success.html', locals())
-
-
 def go_register(request):
     return render(request, 'auth/register.html')
 
@@ -37,6 +32,11 @@ def user_login(request):
         return HttpResponseRedirect('/authapp/gosuccess/?login_name=' + logname)  # 重定向，并传递get参数
     else:
         return render(request, 'auth/login.html', {'msg': '用户名或密码错误，请重新登陆！'})
+
+
+def go_success(request):
+    login_name = request.GET.get('login_name', '')
+    return render(request, 'auth/success.html', locals())
 
 
 @login_required(login_url='/authapp/goreg')
